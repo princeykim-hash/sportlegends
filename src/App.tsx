@@ -2,11 +2,37 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import LandingPage from "./pages/LandingPage";
+import ProfileSetup from "./pages/ProfileSetup";
+import Dashboard from "./pages/Dashboard";
+import QuizPage from "./pages/QuizPage";
+import GamePage from "./pages/GamePage";
 import NotFound from "./pages/NotFound";
+import Navbar from "./components/Navbar";
+import { usePlayerProfile } from "./hooks/usePlayerProfile";
 
 const queryClient = new QueryClient();
+
+function AppRoutes() {
+  const { profile } = usePlayerProfile();
+  const location = useLocation();
+  const showNav = location.pathname !== '/' && location.pathname !== '/profile';
+
+  return (
+    <>
+      {showNav && <Navbar playerName={profile?.name} level={profile?.level} />}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/profile" element={<ProfileSetup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/game" element={<GamePage />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
+  );
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -14,11 +40,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AppRoutes />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
