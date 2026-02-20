@@ -4,54 +4,48 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&display=swap");
-
-@import url("https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap");
-
 /* =====================================================
    CBC FOOTBALL CAREER ACADEMY — Design System
-   Dark Stadium Theme | Green + Gold
+   Light Mode (bright) | Dark Mode (stadium dark)
    ===================================================== */
 
 @layer base {
   :root {
-    /* Background layers */
-    --background: 0 0% 100%;
-    --foreground: 265 4% 12.9%;
+    /* === LIGHT MODE === */
+    --background: 140 30% 96%;
+    --foreground: 145 50% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 265 4% 12.9%;
+    --card-foreground: 145 50% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 265 4% 12.9%;
+    --popover-foreground: 145 50% 8%;
 
     /* Primary — vibrant pitch green */
-    --primary: 266 4% 20.8%;
-    --primary-foreground: 248 0.3% 98.4%;
+    --primary: 142 72% 32%;
+    --primary-foreground: 0 0% 100%;
 
-    /* Secondary — dark field surface */
-    --secondary: 248 0.7% 96.8%;
-    --secondary-foreground: 266 4% 20.8%;
+    /* Secondary */
+    --secondary: 140 20% 92%;
+    --secondary-foreground: 145 50% 8%;
 
-    /* Muted tones */
-    --muted: 248 0.7% 96.8%;
-    --muted-foreground: 257 4.6% 55.4%;
+    /* Muted */
+    --muted: 140 15% 88%;
+    --muted-foreground: 145 20% 40%;
 
-    /* Accent — gold for XP / achievements */
-    --accent: 248 0.7% 96.8%;
-    --accent-foreground: 266 4% 20.8%;
+    /* Accent — gold */
+    --accent: 45 95% 50%;
+    --accent-foreground: 38 80% 15%;
 
     /* Danger */
-    --destructive: 27 24.5% 57.7%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 256 1.3% 92.9%;
-    --input: 256 1.3% 92.9%;
-    --ring: 257 4% 70.4%;
+    --border: 140 20% 80%;
+    --input: 140 20% 88%;
+    --ring: 142 72% 32%;
 
-    --radius: 0.375rem;
+    --radius: 0.75rem;
 
     /* Custom design tokens */
     --pitch-green: 142 72% 38%;
@@ -64,8 +58,73 @@
     --pitch-line: 120 60% 85%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(145 45% 5%) 0%, hsl(142 50% 10%) 50%, hsl(145 45% 5%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(145 35% 11%), hsl(145 30% 7%));
+    --gradient-hero: linear-gradient(135deg, hsl(140 40% 90%) 0%, hsl(142 50% 95%) 50%, hsl(140 40% 90%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(140 20% 97%));
+    --gradient-primary: linear-gradient(135deg, hsl(142 72% 35%), hsl(120 70% 28%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 95% 60%), hsl(38 90% 45%));
+    --gradient-field: linear-gradient(180deg, hsl(142 60% 20%) 0%, hsl(142 65% 25%) 50%, hsl(142 60% 20%) 100%);
+
+    /* Shadows */
+    --shadow-glow-green: 0 0 30px hsl(142 72% 38% / 0.35);
+    --shadow-glow-gold: 0 0 20px hsl(45 95% 55% / 0.5);
+    --shadow-card: 0 4px 20px hsl(145 40% 20% / 0.1);
+    --shadow-elevated: 0 8px 40px hsl(145 40% 20% / 0.15);
+
+    --sidebar-background: 140 30% 96%;
+    --sidebar-foreground: 145 50% 8%;
+    --sidebar-primary: 142 72% 32%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 140 20% 92%;
+    --sidebar-accent-foreground: 145 50% 8%;
+    --sidebar-border: 140 20% 80%;
+    --sidebar-ring: 142 72% 32%;
+    --sidebar: 140 30% 96%;
+
+    --chart-1: 142 72% 38%;
+    --chart-2: 45 95% 55%;
+    --chart-3: 210 70% 55%;
+    --chart-4: 280 60% 55%;
+    --chart-5: 0 72% 51%;
+  }
+
+  .dark {
+    /* === DARK STADIUM MODE === */
+    --background: 145 45% 5%;
+    --foreground: 140 15% 92%;
+
+    --card: 145 40% 9%;
+    --card-foreground: 140 15% 92%;
+
+    --popover: 145 40% 9%;
+    --popover-foreground: 140 15% 92%;
+
+    /* Primary — vibrant pitch green */
+    --primary: 142 72% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary */
+    --secondary: 145 30% 14%;
+    --secondary-foreground: 140 15% 92%;
+
+    /* Muted */
+    --muted: 145 30% 14%;
+    --muted-foreground: 140 20% 55%;
+
+    /* Accent — gold */
+    --accent: 45 90% 52%;
+    --accent-foreground: 38 80% 10%;
+
+    /* Danger */
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 145 30% 18%;
+    --input: 145 30% 16%;
+    --ring: 142 72% 42%;
+
+    /* Gradients — DARK */
+    --gradient-hero: linear-gradient(135deg, hsl(145 45% 5%) 0%, hsl(142 50% 8%) 50%, hsl(145 45% 5%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(145 40% 10%), hsl(145 35% 7%));
     --gradient-primary: linear-gradient(135deg, hsl(142 72% 38%), hsl(120 80% 30%));
     --gradient-gold: linear-gradient(135deg, hsl(45 95% 60%), hsl(38 90% 45%));
     --gradient-field: linear-gradient(180deg, hsl(142 60% 20%) 0%, hsl(142 65% 25%) 50%, hsl(142 60% 20%) 100%);
@@ -76,76 +135,21 @@
     --shadow-card: 0 4px 24px hsl(145 45% 2% / 0.6);
     --shadow-elevated: 0 8px 40px hsl(145 45% 2% / 0.8);
 
-    /* Sidebar (reuse theme) */
     --sidebar-background: 145 45% 5%;
-    --sidebar-foreground: 265 4% 12.9%;
-    --sidebar-primary: 266 4% 20.8%;
-    --sidebar-primary-foreground: 248 0.3% 98.4%;
-    --sidebar-accent: 248 0.7% 96.8%;
-    --sidebar-accent-foreground: 266 4% 20.8%;
-    --sidebar-border: 256 1.3% 92.9%;
-    --sidebar-ring: 257 4% 70.4%;
-    --chart-1: 41 22.2% 64.6%;
-    --chart-2: 185 11.8% 60%;
-    --chart-3: 227 7% 39.8%;
-    --chart-4: 84 18.9% 82.8%;
-    --chart-5: 70 18.8% 76.9%;
-    --sidebar: 248 0.3% 98.4%;
-    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
-    --tracking-normal: 0em;
-    --spacing: 0.25rem;
-  }
-  .dark {
-    --background: 0 0% 15%;
-    --foreground: 248 0.3% 98.4%;
-    --card: 266 4% 20.8%;
-    --card-foreground: 248 0.3% 98.4%;
-    --popover: 266 4% 20.8%;
-    --popover-foreground: 248 0.3% 98.4%;
-    --primary: 256 1.3% 92.9%;
-    --primary-foreground: 266 4% 20.8%;
-    --secondary: 260 4.1% 27.9%;
-    --secondary-foreground: 248 0.3% 98.4%;
-    --muted: 260 4.1% 27.9%;
-    --muted-foreground: 257 4% 70.4%;
-    --accent: 260 4.1% 27.9%;
-    --accent-foreground: 248 0.3% 98.4%;
-    --border: 0 0% 100% / 10%;
-    --input: 0 0% 100% / 15%;
-    --ring: 264 2.7% 55.1%;
-    --destructive: 22 19.1% 70.4%;
-    --destructive-foreground: 248 0.3% 98.4%;
-    --chart-1: 264 24.3% 48.8%;
-    --chart-2: 162 17% 69.6%;
-    --chart-3: 70 18.8% 76.9%;
-    --chart-4: 304 26.5% 62.7%;
-    --chart-5: 16 24.6% 64.5%;
-    --sidebar: 266 4% 20.8%;
-    --sidebar-foreground: 248 0.3% 98.4%;
-    --sidebar-primary: 264 24.3% 48.8%;
-    --sidebar-primary-foreground: 248 0.3% 98.4%;
-    --sidebar-accent: 260 4.1% 27.9%;
-    --sidebar-accent-foreground: 248 0.3% 98.4%;
-    --sidebar-border: 0 0% 100% / 10%;
-    --sidebar-ring: 264 2.7% 55.1%;
-    --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
-    --shadow-sm: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 1px 2px -1px hsl(0 0% 0% / 0.1);
-    --shadow-md: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.1);
-    --shadow-lg: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 4px 6px -1px hsl(0 0% 0% / 0.1);
-    --shadow-xl: 0 1px 3px 0px hsl(0 0% 0% / 0.1), 0 8px 10px -1px hsl(0 0% 0% / 0.1);
-    --shadow-2xl: 0 1px 3px 0px hsl(0 0% 0% / 0.25);
+    --sidebar-foreground: 140 15% 92%;
+    --sidebar-primary: 142 72% 42%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 145 30% 14%;
+    --sidebar-accent-foreground: 140 15% 92%;
+    --sidebar-border: 145 30% 18%;
+    --sidebar-ring: 142 72% 42%;
+    --sidebar: 145 40% 9%;
+
+    --chart-1: 142 72% 50%;
+    --chart-2: 45 95% 60%;
+    --chart-3: 210 70% 65%;
+    --chart-4: 280 60% 65%;
+    --chart-5: 0 72% 60%;
   }
 }
 
@@ -158,6 +162,7 @@
     @apply bg-background text-foreground;
     font-family: 'Inter', sans-serif;
     background: hsl(var(--background));
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   h1, h2, h3 {
@@ -179,6 +184,7 @@
 
   .gradient-hero {
     background: var(--gradient-hero);
+    min-height: 100vh;
   }
 
   .gradient-card {
@@ -236,17 +242,6 @@
     50% { box-shadow: 0 0 0 12px hsl(142 72% 38% / 0); }
   }
 
-  /* Field stripe pattern */
-  .field-stripes {
-    background-image: repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 40px,
-      hsl(142 72% 38% / 0.08) 40px,
-      hsl(142 72% 38% / 0.08) 80px
-    );
-  }
-
   /* Badge locked state */
   .badge-locked {
     filter: grayscale(1) brightness(0.4);
@@ -255,6 +250,7 @@
   /* Bounce animation */
   .bounce-ball {
     animation: bounce-ball 1s ease-in-out infinite alternate;
+    display: inline-block;
   }
 
   @keyframes bounce-ball {

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { usePlayerProfile } from '@/hooks/usePlayerProfile';
 import XPBar from '@/components/XPBar';
 import { BadgeDisplay } from '@/components/BadgeCard';
-import { ALL_BADGES, MAX_LEVEL } from '@/types';
+import { ALL_BADGES, LEVEL_REWARDS, MAX_LEVEL } from '@/types';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -39,18 +39,19 @@ const Dashboard: React.FC = () => {
   }
 
   const quickActions = [
-    { icon: '🧠', label: 'Take a Quiz', desc: 'Test your CBC knowledge', path: '/quiz', color: 'border-blue-500/30 bg-blue-500/10' },
-    { icon: '⚽', label: 'Play Football', desc: 'Jump into a match', path: '/game', color: 'border-primary/30 bg-primary/10' },
+    { icon: '🧠', label: 'Take a Quiz', desc: 'Test your CBC knowledge', path: '/quiz', color: 'border-blue-500/30 bg-blue-500/10 hover:border-blue-500/50' },
+    { icon: '⚽', label: 'Play Football', desc: 'Jump into a match', path: '/game', color: 'border-primary/30 bg-primary/10 hover:border-primary/50' },
+    { icon: '🏆', label: 'Leaderboard', desc: 'See top players', path: '/leaderboard', color: 'border-yellow-500/30 bg-yellow-500/10 hover:border-yellow-500/50' },
   ];
 
   const stats = [
     { label: 'Matches Played', value: profile.matchesPlayed, icon: '🏟️' },
     { label: 'Goals Scored', value: profile.goalsScored, icon: '⚽' },
-    { label: 'Questions Answered', value: profile.quizTotal, icon: '📝' },
+    { label: 'Questions', value: profile.quizTotal, icon: '📝' },
     { label: 'Quiz Accuracy', value: `${quizAccuracy}%`, icon: '🎯' },
   ];
 
-  const nextUnlock = profile.level < 5 ? `Medium Difficulty at Level 5` : profile.level < 10 ? `Hard Difficulty at Level 10` : 'All difficulties unlocked!';
+  const nextLevelReward = LEVEL_REWARDS[profile.level + 1] || LEVEL_REWARDS[Math.ceil((profile.level + 1) / 5) * 5] || null;
 
   return (
     <div className="min-h-screen gradient-hero">
@@ -59,8 +60,8 @@ const Dashboard: React.FC = () => {
         <div className="mb-6 rounded-2xl border border-border gradient-card p-5 shadow-elevated slide-up">
           <div className="flex items-start gap-4">
             {/* Avatar */}
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl gradient-primary font-sports text-2xl text-primary-foreground shadow-elevated">
-              {profile.name.charAt(0).toUpperCase()}
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-primary/30 bg-primary/10 text-3xl shadow-elevated">
+              {profile.avatar || '⚽'}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">
@@ -68,27 +69,36 @@ const Dashboard: React.FC = () => {
                 <span className="rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-xs font-sports text-primary">
                   Grade {profile.grade}
                 </span>
+                {profile.level >= 20 && (
+                  <span className="rounded-full border border-yellow-500/30 bg-yellow-500/10 px-2 py-0.5 text-xs font-sports text-yellow-500">
+                    ⭐ ELITE
+                  </span>
+                )}
               </div>
               <p className="text-xs text-muted-foreground mb-3">
                 Joined {new Date(profile.createdAt).toLocaleDateString('en-KE', { day: 'numeric', month: 'short', year: 'numeric' })}
+                {' '}• Total XP: {profile.xp.toLocaleString()}
               </p>
               <XPBar xp={profile.xp} level={profile.level} />
             </div>
           </div>
 
-          {/* Next unlock hint */}
-          <div className="mt-4 rounded-xl border border-accent/20 bg-accent/10 px-3 py-2">
-            <p className="text-xs text-accent">🔓 Next unlock: {nextUnlock}</p>
-          </div>
+          {nextLevelReward && profile.level < MAX_LEVEL && (
+            <div className="mt-4 rounded-xl border border-accent/20 bg-accent/10 px-3 py-2">
+              <p className="text-xs text-accent">🔓 Level {profile.level + 1} reward: {LEVEL_REWARDS[profile.level + 1] || 'More XP & badges!'}</p>
+            </div>
+          )}
+          {profile.level >= MAX_LEVEL && (
+            <div className="mt-4 rounded-xl border border-yellow-500/30 bg-yellow-500/10 px-3 py-2">
+              <p className="text-xs text-yellow-500">🐐 MAX LEVEL REACHED — You are the GOAT!</p>
+            </div>
+          )}
         </div>
 
         {/* Stats Grid */}
         <div className="mb-6 grid grid-cols-2 gap-3 md:grid-cols-4">
           {stats.map((stat, i) => (
-            <div
-              key={i}
-              className="rounded-xl border border-border gradient-card p-4 text-center shadow-card"
-            >
+            <div key={i} className="rounded-xl border border-border gradient-card p-4 text-center shadow-card">
               <div className="text-2xl mb-1">{stat.icon}</div>
               <div className="font-sports text-xl text-foreground">{stat.value}</div>
               <div className="text-xs text-muted-foreground">{stat.label}</div>
@@ -97,7 +107,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="mb-6 grid gap-3 sm:grid-cols-2">
+        <div className="mb-6 grid gap-3 sm:grid-cols-3">
           {quickActions.map((action, i) => (
             <button
               key={i}
@@ -112,7 +122,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Badges */}
-        <div className="rounded-2xl border border-border gradient-card p-5 shadow-card">
+        <div className="rounded-2xl border border-border gradient-card p-5 shadow-card mb-6">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-sports text-xl text-foreground">ACHIEVEMENTS</h2>
             <span className="rounded-full bg-accent/20 px-2 py-0.5 text-xs font-sports text-accent">
@@ -123,13 +133,13 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Difficulty unlocks */}
-        <div className="mt-6 rounded-2xl border border-border gradient-card p-5 shadow-card">
+        <div className="rounded-2xl border border-border gradient-card p-5 shadow-card mb-6">
           <h2 className="font-sports text-xl text-foreground mb-4">CAREER PROGRESS</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             {[
-              { level: 1, diff: 'easy', label: '⚽ Easy Mode', desc: '2 defenders, slow pace', color: 'border-green-500/30 bg-green-500/10' },
-              { level: 5, diff: 'medium', label: '🔥 Medium Mode', desc: '3 defenders, normal pace', color: 'border-yellow-500/30 bg-yellow-500/10' },
-              { level: 10, diff: 'hard', label: '💀 Hard Mode', desc: '4 defenders, fast pace', color: 'border-red-500/30 bg-red-500/10' },
+              { level: 1, diff: 'easy', label: '⚽ Easy Mode', desc: '2 defenders, 1× XP', color: 'border-green-500/30 bg-green-500/10' },
+              { level: 3, diff: 'medium', label: '🔥 Medium Mode', desc: '3 defenders, 1.2× XP', color: 'border-yellow-500/30 bg-yellow-500/10' },
+              { level: 5, diff: 'hard', label: '💀 Hard Mode', desc: '4 defenders, 1.5× XP', color: 'border-red-500/30 bg-red-500/10' },
             ].map(d => {
               const unlocked = profile.unlockedDifficulties.includes(d.diff as 'easy' | 'medium' | 'hard');
               return (
@@ -138,6 +148,25 @@ const Dashboard: React.FC = () => {
                   <div className="text-xs text-muted-foreground">{d.desc}</div>
                   {!unlocked && <div className="mt-1 text-xs text-accent">🔒 Reach Level {d.level}</div>}
                   {unlocked && <div className="mt-1 text-xs text-primary">✓ Unlocked</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Level rewards reference */}
+        <div className="rounded-2xl border border-border gradient-card p-5 shadow-card">
+          <h2 className="font-sports text-xl text-foreground mb-4">LEVEL REWARDS</h2>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {Object.entries(LEVEL_REWARDS).map(([lvl, reward]) => {
+              const reached = profile.level >= Number(lvl);
+              return (
+                <div key={lvl} className={`flex items-center gap-3 rounded-xl border p-2.5 text-sm ${reached ? 'border-primary/20 bg-primary/5' : 'border-border opacity-60'}`}>
+                  <span className={`font-sports text-xs w-12 shrink-0 ${reached ? 'text-primary' : 'text-muted-foreground'}`}>
+                    LV.{lvl}
+                  </span>
+                  <span className={`text-xs ${reached ? 'text-foreground' : 'text-muted-foreground'}`}>{reward}</span>
+                  {reached && <span className="ml-auto text-xs text-primary">✓</span>}
                 </div>
               );
             })}
